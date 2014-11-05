@@ -28,6 +28,50 @@ clear all
 close all
 clc
 
+
+figure
+t=linspace(0,2*pi,300);
+plot(cos(t),sin(t),'Linewidth',24)
+hold on
+n=4;
+delta_m=0;
+line([0 cos(delta_m)],[0 sin(delta_m)],'Linewidth',24,'Color','r')
+delta_m=pi;
+line([0 cos(delta_m)],[0 sin(delta_m)],'Linewidth',24,'Color','r')
+for m=1:n
+  delta_m=-m*pi/(n+1);
+  line([0 cos(delta_m)],[0 sin(delta_m)],'Linewidth',24,'Color','g')
+end
+for m=1:n
+  delta_m=m*pi/(n+1);
+  line([0 cos(delta_m)],[0 sin(delta_m)],'Linewidth',24)
+end
+axis equal
+axis off
+print -djpeg circle_even.jpg
+
+figure
+t=linspace(0,2*pi,300);
+plot(cos(t),sin(t),'Linewidth',24)
+hold on
+n=3;
+delta_m=0;
+line([0 cos(delta_m)],[0 sin(delta_m)],'Linewidth',24,'Color','r')
+delta_m=pi;
+line([0 cos(delta_m)],[0 sin(delta_m)],'Linewidth',24,'Color','r')
+for m=1:n
+  delta_m=-m*pi/(n+1);
+  line([0 cos(delta_m)],[0 sin(delta_m)],'Linewidth',24,'Color','g')
+end
+for m=1:n
+  delta_m=m*pi/(n+1);
+  line([0 cos(delta_m)],[0 sin(delta_m)],'Linewidth',24)
+end
+axis equal
+axis off
+print -djpeg circle_odd.jpg
+
+
 % Number of defrees of freedom 
 n=50;
 % Number of the selected modes
@@ -71,7 +115,17 @@ hold on
 plot(P(:,1)/max(P(:,1)),'r.-', 'Linewidth',2,'Markersize',15)
 plot(P(:,2)/max(P(:,2)),'k.-', 'Linewidth',2,'Markersize',15)
 plot(P(:,3)/max(P(:,3)),'m.-', 'Linewidth',2,'Markersize',15)
+print -djpeg modes_equalized.jpg
+
+figure
+set(gca,'Fontsize',15)
+hold on
+plot(P(:,1),'r.-', 'Linewidth',2,'Markersize',15)
+plot(P(:,2),'k.-', 'Linewidth',2,'Markersize',15)
+plot(P(:,3),'m.-', 'Linewidth',2,'Markersize',15)
 print -djpeg modes.jpg
+
+
 
 F=zeros(n,1);
 F(1)=1;
