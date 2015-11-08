@@ -1,4 +1,4 @@
-%   Program MFA_L3.m
+%   Program MFA_L5.m
 %
 %   Copyright (C) 2014 LAUM UMR CNRS 6613 (France)
 % 	   Olivier DAZEL <olivier.dazel@univ-lemans.fr>
@@ -29,14 +29,13 @@ close all
 clc
 
 % Number of values in the sequence 
-n=100;
+n=60;
 % Vector of time values
-t=linspace(0,1,n)';
+t=linspace(1,2,n)';
 
 % Parameter of the model to recover
-alpha=10
+alpha=1
 beta=2
-gamma=3;
 
 
 % Parameters relative to the noise on data
@@ -45,19 +44,15 @@ NSR=0.08;
 noise=NSR*noise_max;
 sigma=noise*rand(n,1);
 % Generation of dat with noise
-y=alpha*t.^2+beta*t+gamma+noise*(rand(n,1)-0.5);
+y=alpha*t+beta+noise*(rand(n,1)-0.5);
 
 % Application of the basic LMS procedure
- M=[t.^2,t,ones(n,1)];
-X_LMS=inv(M'*M)*(M'*y)
- y_LMS=X_LMS(1)*t.^2+X_LMS(2)*t+X_LMS(3);
+M=[t,ones(n,1)];
+X_LMS=(M'*M)\(M'*y)
+y_LMS=X_LMS(1)*t+X_LMS(2);
 figure
 plot(t,y,'.','Markersize',15)
-
-
 set(gca,'Fontsize',25)
-
-
 print -djpeg L3_LMS_data.jpg
 hold on
 plot(t,y_LMS,'m', 'Linewidth',3,'Color','m')
@@ -65,7 +60,7 @@ set(gca,'Fontsize',25)
 xlim([0.9 2.1])
 ylim([2.8 4.1])
 print -djpeg L3_LMS.jpg
-rezezr
+
 
 X1=t-mean(t);
 X2=y-mean(y);
